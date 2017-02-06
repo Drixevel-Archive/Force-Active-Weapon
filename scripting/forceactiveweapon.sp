@@ -2,7 +2,7 @@
 #pragma newdecls required
 
 #define PLUGIN_DESCRIPTION "Force clients to use an active weapon either via commands or console variables."
-#define PLUGIN_VERSION "1.0.0"
+#define PLUGIN_VERSION "1.0.1"
 
 #include <sourcemod>
 #include <sdktools>
@@ -79,9 +79,14 @@ public Action Command_ForceActiveWeapon(int client, int args)
 
 void ForcePlayerActiveSlot(int client, int slot = 0, int admin = 0)
 {
-	if (client <= 0 || client > MaxClients || !IsClientInGame(client) || !IsPlayerAlive(client) || slot < 0 || slot > 6)
+	if (client <= 0 || client > MaxClients || !IsClientInGame(client) || !IsPlayerAlive(client))
 	{
 		return;
+	}
+	
+	if (slot < 0 || slot > 6)
+	{
+		slot = 0;
 	}
 	
 	iForceWeapon[client] = slot;
@@ -92,7 +97,7 @@ void ForcePlayerActiveSlot(int client, int slot = 0, int admin = 0)
 
 public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3], float angles[3], int &weapon, int &subtype, int &cmdnum, int &tickcount, int &seed, int mouse[2])
 {
-	if (IsPlayerAlive(client) && iForceWeapon[client] != -1)
+	if (IsPlayerAlive(client) && iForceWeapon[client] > 0)
 	{
 		int setactive = GetPlayerWeaponSlot(client, iForceWeapon[client] - 1);
 		
