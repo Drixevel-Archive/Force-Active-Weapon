@@ -15,10 +15,10 @@ int iForceWeapon[MAXPLAYERS + 1];
 public Plugin myinfo = 
 {
 	name = "Force Active Weapon", 
-	author = "Keith Warren (Drixevel)", 
+	author = "Keith Warren (Shaders Allen)", 
 	description = PLUGIN_DESCRIPTION, 
 	version = PLUGIN_VERSION, 
-	url = "http://www.drixevel.com/"
+	url = "http://www.shadersallen.com/"
 };
 
 public void OnPluginStart()
